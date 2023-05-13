@@ -25,7 +25,7 @@ Bu projeyi çalıştırmak için aşağıdaki yazılımların yüklü olduğunda
    git clone https://github.com/FurkanSamaraz/Golang-Chat.git
    
 2. Proje dizinine gidin:
-   cd Golang-Chat
+    ```cd Golang-Chat
     
 3. Gerekli bağımlılıkları yükleyin:
    go get
