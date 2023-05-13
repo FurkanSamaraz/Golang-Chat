@@ -65,7 +65,7 @@ Bu projeyi çalıştırmak için aşağıdaki yazılımların yüklü olduğunda
 Not: API rotalarıyla ilgili daha fazla ayrıntıyı swagger.yaml dosyasında bulabilirsiniz.
 ```
 
-### Katkıda Bulunma
+### Katkıda Bulunma
 Katkıda bulunmak isteyen geliştiriciler, fork yaparak kendi projelerinde çalışabilirler. Yapılan değişiklikleri bir talep (pull request) ile gönderebilirler.
    
 
