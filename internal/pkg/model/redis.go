@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"log"
 
-	setup "main/internal/pkg/config"
-	api_structure "main/internal/pkg/structures"
+	setup "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/config"
+	api_structure "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/structures"
 
 	"github.com/go-redis/redis/v8"
 )

@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	api_service "main/internal/pkg/services"
+	api_service "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/services"
 
-	api_structure "main/internal/pkg/structures"
+	api_structure "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/structures"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"

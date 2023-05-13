@@ -2,7 +2,8 @@ package services
 
 import (
 	"fmt"
-	api_structure "main/internal/pkg/structures"
+
+	api_structure "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/structures"
 
 	"github.com/dgrijalva/jwt-go"
 	"gorm.io/gorm"

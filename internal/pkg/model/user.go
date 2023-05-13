@@ -2,7 +2,8 @@ package model
 
 import (
 	"log"
-	api_structure "main/internal/pkg/structures"
+
+	api_structure "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/structures"
 )
 
 func Register(user *api_structure.User) *api_structure.Response {

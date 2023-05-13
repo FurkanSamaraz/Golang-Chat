@@ -1,6 +1,6 @@
 package services
 
-import "main/internal/pkg/structures"
+import "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/structures"
 
 // Kullanıcıyı Odaya Ekle
 func AddClientToRoom(room *structures.Room, username string, client *structures.Client) {

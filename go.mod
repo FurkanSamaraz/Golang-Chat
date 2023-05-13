@@ -1,4 +1,4 @@
-module main
+module github.com/FurkanSamaraz/Golang-Chat
 
 go 1.20
 
@@ -7,6 +7,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/gofiber/fiber/v2 v2.45.0
 	github.com/gofiber/websocket/v2 v2.1.6
+	github.com/joho/godotenv v1.5.1
 	github.com/swaggo/swag v1.16.1
 	gorm.io/driver/postgres v1.5.0
 	gorm.io/gorm v1.25.1

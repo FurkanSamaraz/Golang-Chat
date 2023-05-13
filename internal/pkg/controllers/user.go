@@ -2,10 +2,11 @@ package controllers
 
 import (
 	"fmt"
-	api_structure "main/internal/pkg/structures"
 
-	api_model "main/internal/pkg/model"
-	api_service "main/internal/pkg/services"
+	api_structure "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/structures"
+
+	api_model "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/model"
+	api_service "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/services"
 
 	"github.com/gofiber/fiber/v2"
 )

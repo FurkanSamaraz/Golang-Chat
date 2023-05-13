@@ -3,10 +3,10 @@ package main
 import (
 	"log"
 
-	"main/internal/pkg/config"
-	"main/internal/pkg/controllers"
-	"main/internal/pkg/middleware"
-	"main/internal/pkg/services"
+	"github.com/FurkanSamaraz/Golang-Chat/internal/pkg/config"
+	"github.com/FurkanSamaraz/Golang-Chat/internal/pkg/controllers"
+	"github.com/FurkanSamaraz/Golang-Chat/internal/pkg/middleware"
+	"github.com/FurkanSamaraz/Golang-Chat/internal/pkg/services"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/websocket/v2"

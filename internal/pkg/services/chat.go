@@ -3,8 +3,9 @@ package services
 import (
 	"fmt"
 	"log"
-	model "main/internal/pkg/model"
-	api_structure "main/internal/pkg/structures"
+
+	model "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/model"
+	api_structure "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/structures"
 
 	"gorm.io/gorm"
 )
