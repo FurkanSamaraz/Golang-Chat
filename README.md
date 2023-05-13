@@ -12,10 +12,10 @@ Bu talimatlar, projeyi yerel ortamınızda çalıştırmak için gereken adımla
 ### Önkoşullar
 
 Bu projeyi çalıştırmak için aşağıdaki yazılımların yüklü olduğundan emin olun:
-```
-- Golang: [Golang Resmi Websitesi](https://golang.org/)
-- Redis: [Redis Resmi Websitesi](https://redis.io/)
-- PostgreSQL: [PostgreSQL Resmi Websitesi](https://www.postgresql.org/)
+   ```
+   - Golang: [Golang Resmi Websitesi](https://golang.org/)
+   - Redis: [Redis Resmi Websitesi](https://redis.io/)
+   - PostgreSQL: [PostgreSQL Resmi Websitesi](https://www.postgresql.org/)
 ### Kurulum
 
 1. Projeyi yerel makinenize klonlayın:
