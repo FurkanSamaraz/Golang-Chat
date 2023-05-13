@@ -27,7 +27,6 @@ Bu projeyi çalıştırmak için aşağıdaki yazılımların yüklü olduğunda
 2. Proje dizinine gidin:
     ```
     cd Golang-Chat
-    
 3. Gerekli bağımlılıkları yükleyin:
    go get
    
