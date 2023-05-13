@@ -20,9 +20,9 @@ Bu projeyi çalıştırmak için aşağıdaki yazılımların yüklü olduğunda
 
 1. Projeyi yerel makinenize klonlayın:
 
-```shell
+```
    git clone https://github.com/FurkanSamaraz/Golang-Chat.git
-   
+```
 2. Proje dizinine gidin:
 ```
     cd Golang-Chat
