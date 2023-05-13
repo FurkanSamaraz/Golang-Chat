@@ -14,7 +14,7 @@ const docTemplate = `{
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
-    "basePath": "{{.BasePath}}", 
+    "basePath": "{{.BasePath}}",
     "paths": {
         "/chat-history": {
             "get": {
@@ -207,6 +207,16 @@ const docTemplate = `{
                         }
                     }
                 }
+            }
+        },
+        "/ws": {
+            "get": {
+                "description": "Handles WebSocket connections and message sending",
+                "tags": [
+                    "WebSocket"
+                ],
+                "summary": "WebSocket Handler",
+                "responses": {}
             }
         }
     },

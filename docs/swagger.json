@@ -196,6 +196,16 @@
                     }
                 }
             }
+        },
+        "/ws": {
+            "get": {
+                "description": "Handles WebSocket connections and message sending",
+                "tags": [
+                    "WebSocket"
+                ],
+                "summary": "WebSocket Handler",
+                "responses": {}
+            }
         }
     },
     "definitions": {
@@ -246,4 +256,4 @@
             }
         }
     }
-} 
+}

@@ -13,7 +13,11 @@ import (
 var clients = make(map[string]*api_structure.Client)
 var rooms = make(map[string]*api_structure.Room)
 
-// WebSocket uç noktamızı tanımlayın
+// WsHandler handles WebSocket connections and message sending
+// @Summary       WebSocket Handler
+// @Description   Handles WebSocket connections and message sending
+// @Tags          WebSocket
+// @Router        /ws [get]
 func WsHandler(c *websocket.Conn) {
 	user := c.Locals("user").(*api_structure.Claims)
 
