@@ -88,7 +88,7 @@ paths:
       consumes:
       - application/json
       description: Logs in a user
-      parameters:
+      parameters: 
       - description: Request body
         in: body
         name: body

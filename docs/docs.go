@@ -14,7 +14,7 @@ const docTemplate = `{
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
-    "basePath": "{{.BasePath}}",
+    "basePath": "{{.BasePath}}", 
     "paths": {
         "/chat-history": {
             "get": {
