@@ -1,0 +1,159 @@
+definitions:
+  structures.ErrorResponse:
+    properties:
+      error:
+        type: string
+      message:
+        type: string
+      type:
+        type: string
+    type: object
+  structures.Response:
+    properties:
+      data: {}
+      jwt:
+        type: string
+      message:
+        type: string
+      status:
+        type: boolean
+    type: object
+  structures.User:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /chat-history:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the chat history between two users
+      parameters:
+      - description: Username of user 1
+        in: query
+        name: u1
+        required: true
+        type: string
+      - description: Username of user 2
+        in: query
+        name: u2
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structures.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structures.ErrorResponse'
+      summary: Chat History
+      tags:
+      - Chat
+  /contact-list:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the contact list of a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structures.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structures.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Contact List
+      tags:
+      - User
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Logs in a user
+      parameters:
+      - description: Request body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/structures.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structures.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structures.ErrorResponse'
+      summary: Login User
+      tags:
+      - User
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new user
+      parameters:
+      - description: Request body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/structures.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structures.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structures.ErrorResponse'
+      summary: Register User
+      tags:
+      - User
+  /verify-contact:
+    get:
+      consumes:
+      - application/json
+      description: Verifies the contact of a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/structures.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/structures.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Verify Contact
+      tags:
+      - User
+swagger: "2.0"
