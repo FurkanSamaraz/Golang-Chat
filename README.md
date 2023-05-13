@@ -1,4 +1,5 @@
-![WebSocket Server](https://github.com/FurkanSamaraz/Golang-Chat/assets/92402372/18f7d32b-7b6f-4c72-a8dd-571e75dbddbb)
+![WebSocket Server](https://github.com/FurkanSamaraz/Golang-Chat/assets/92402372/b5a157e4-e116-4e0d-a5c2-a60943b5410b)
+
 
 # Golang-Chat
 Redis - WebSocket - Go
