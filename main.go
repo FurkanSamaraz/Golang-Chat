@@ -27,6 +27,7 @@ func main() {
 
 	app.Post("/register", userControllers.RegisterHandler)
 	app.Post("/login", userControllers.LoginHandler)
+
 	app.Use(jwtMiddleware.Middleware())
 
 	app.Get("/verify-contact", chatControllers.VerifyContactHandler)
