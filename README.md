@@ -22,31 +22,31 @@ Bu projeyi çalıştırmak için aşağıdaki yazılımların yüklü olduğunda
 1. Projeyi yerel makinenize klonlayın:
 
 ```
-   git clone https://github.com/FurkanSamaraz/Golang-Chat.git
+git clone https://github.com/FurkanSamaraz/Golang-Chat.git
 ```
 
 2. Proje dizinine gidin:
 ```
-    cd Golang-Chat
+cd Golang-Chat
 ```   
 
 3. Gerekli bağımlılıkları yükleyin:
 ```
-   go get
+go get
 ```
 
 4. .env adında bir dosya oluşturun ve aşağıdaki içeriği ekleyin:
 ```
-   REDIS_URL=redis://localhost:6379
-   POSTGRES_URL=postgresql://username:password@localhost:5432/database_name?sslmode=disable
+REDIS_URL=redis://localhost:6379
+POSTGRES_URL=postgresql://username:password@localhost:5432/database_name?sslmode=disable
 ```
 ```
-   Not: username, password ve database_name değerlerini kendi PostgreSQL ayarlarınıza göre güncelleyin.
+Not: username, password ve database_name değerlerini kendi PostgreSQL ayarlarınıza göre güncelleyin.
 ```   
 
 5. Uygulamayı başlatmak için aşağıdaki komutu çalıştırın:
 ```
-   go run main.go
+go run main.go
 ```
 
 6. Tarayıcınızda http://localhost:8080 adresini açın.
