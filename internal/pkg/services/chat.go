@@ -4,13 +4,16 @@ import (
 	"fmt"
 	"log"
 
-	model "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/model"
+	api_model "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/model"
 	api_structure "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/structures"
 
 	"gorm.io/gorm"
 )
 
-type ChatService struct{ DB *gorm.DB }
+type ChatService struct {
+	DB     *gorm.DB
+	Client api_model.RedisService
+}
 type IChatInstance interface {
 	VerifyContact(username string) *api_structure.Response
 	ChatHistory(username1, username2, fromTS, toTS string) *api_structure.Response
@@ -22,7 +25,7 @@ func (r *ChatService) VerifyContact(username string) (*api_structure.Response, e
 	// geçerli kullanıcı ise yeni oturum oluştur
 	res := &api_structure.Response{Status: true}
 
-	status, err := model.IsUserExist(username)
+	status, err := r.Client.IsUserExist(username)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,7 +43,7 @@ func (r *ChatService) ChatHistory(username1, username2 string) (*api_structure.R
 	res := &api_structure.Response{}
 
 	// Kullanıcının var olup olmadığını kontrol edin
-	status1, err := model.IsUserExist(username1)
+	status1, err := r.Client.IsUserExist(username1)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -49,7 +52,7 @@ func (r *ChatService) ChatHistory(username1, username2 string) (*api_structure.R
 		res.Message = "invalid username"
 	}
 
-	status2, err := model.IsUserExist(username2)
+	status2, err := r.Client.IsUserExist(username2)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -58,7 +61,7 @@ func (r *ChatService) ChatHistory(username1, username2 string) (*api_structure.R
 		res.Message = "invalid username"
 	}
 
-	chats, err := model.FetchChatBetween(username1, username2)
+	chats, err := r.Client.FetchChatBetween(username1, username2)
 	if err != nil {
 		log.Println("error in fetch chat between", err)
 		res.Message = "unable to fetch chat history. please try again later."
@@ -75,7 +78,7 @@ func (r *ChatService) ContactList(username string) (*api_structure.Response, err
 	// geçerli kullanıcılar sohbetleri getirirse
 	res := &api_structure.Response{}
 
-	status, err := model.IsUserExist(username)
+	status, err := r.Client.IsUserExist(username)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -84,7 +87,7 @@ func (r *ChatService) ContactList(username string) (*api_structure.Response, err
 		res.Message = "invalid username"
 	}
 
-	contactList, err := model.FetchContactList(username)
+	contactList, err := r.Client.FetchContactList(username)
 	if err != nil {
 		log.Println("error in fetch contact list of username: ", username, err)
 		res.Message = "unable to fetch contact list. please try again later."

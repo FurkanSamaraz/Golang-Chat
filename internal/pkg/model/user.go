@@ -6,14 +6,18 @@ import (
 	api_structure "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/structures"
 )
 
-func Register(user *api_structure.User) *api_structure.Response {
+type UserModel struct {
+	Scv RedisService
+}
+
+func (redisModel *UserModel) Register(user *api_structure.User) *api_structure.Response {
 	// kullanıcı setinde kullanıcı adı olup olmadığını kontrol edin
 	// varsa hata döndür
 	// yeni kullanıcı oluştur
 	// hata için yanıt oluştur
 	res := &api_structure.Response{Status: true}
 
-	status, err := IsUserExist(user.Username)
+	status, err := redisModel.Scv.IsUserExist(user.Username)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -23,7 +27,7 @@ func Register(user *api_structure.User) *api_structure.Response {
 		return res
 	}
 
-	err = RegisterNewUser(user)
+	err = redisModel.Scv.RegisterNewUser(user)
 	if err != nil {
 		res.Status = false
 		res.Message = "something went wrong while registering the user. please try again after sometime."
@@ -33,12 +37,12 @@ func Register(user *api_structure.User) *api_structure.Response {
 	return res
 }
 
-func Login(user *api_structure.User) *api_structure.Response {
+func (redisModel *UserModel) Login(user *api_structure.User) *api_structure.Response {
 	// geçersiz kullanıcı adı ve şifre hatası verirse
 	// geçerli kullanıcı ise yeni oturum oluştur
 	res := &api_structure.Response{Status: true}
 
-	err := IsUserAuthentic(user)
+	err := redisModel.Scv.IsUserAuthentic(user)
 	if err != nil {
 		res.Status = false
 		res.Message = err.Error()

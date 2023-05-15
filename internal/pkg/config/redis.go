@@ -3,20 +3,15 @@ package config
 import (
 	"context"
 	"log"
-	"os"
 
 	"github.com/go-redis/redis/v8"
 	"github.com/joho/godotenv"
 )
 
-var RedisClient *redis.Client
-
 func InitialiseRedis() *redis.Client {
 	godotenv.Load()
-	dsn := os.Getenv("REDIS_URL")
-
 	conn := redis.NewClient(&redis.Options{
-		Addr: dsn,
+		Addr: "localhost:6379",
 	})
 
 	// Redis'in bağlı olup olmadığını kontrol etme
@@ -29,7 +24,5 @@ func InitialiseRedis() *redis.Client {
 	log.Println("Redis Successfully Connected.",
 		"Ping", pong)
 
-	RedisClient = conn
-
-	return RedisClient
+	return conn
 }

@@ -12,7 +12,8 @@ import (
 )
 
 type UserController struct {
-	Svc api_service.UserService
+	Svc        api_service.UserService
+	RedisModel api_model.UserModel
 }
 
 // RegisterHandler godoc
@@ -34,7 +35,7 @@ func (controller *UserController) RegisterHandler(c *fiber.Ctx) error {
 			Message: "Invalid request",
 		})
 	}
-	res := api_model.Register(&user)
+	res := controller.RedisModel.Register(&user)
 	if user.Username == "" || user.Password == "" {
 		return c.Status(fiber.StatusInternalServerError).JSON(api_structure.ErrorResponse{
 			Type:    "Fetch Data",
@@ -92,7 +93,7 @@ func (controller *UserController) LoginHandler(c *fiber.Ctx) error {
 	}
 	c.Locals("Authorization", result)
 
-	res := api_model.Login(&user)
+	res := controller.RedisModel.Login(&user)
 	res.Jwt = result
 
 	return c.Status(fiber.StatusOK).JSON(res)

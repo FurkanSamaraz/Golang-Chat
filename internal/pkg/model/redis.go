@@ -6,20 +6,21 @@ import (
 	"fmt"
 	"log"
 
-	setup "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/config"
 	api_structure "github.com/FurkanSamaraz/Golang-Chat/internal/pkg/structures"
 
 	"github.com/go-redis/redis/v8"
 )
 
-func RegisterNewUser(user *api_structure.User) error {
+type RedisService struct{ Client *redis.Client }
+
+func (redisC *RedisService) RegisterNewUser(user *api_structure.User) error {
 	data, err := json.Marshal(user)
 	if err != nil {
 		log.Println("json", err)
 		return err
 	}
 
-	err = setup.RedisClient.Set(context.Background(), user.Username, data, 0).Err()
+	err = redisC.Client.Set(context.Background(), user.Username, data, 0).Err()
 	if err != nil {
 		log.Println("error while adding new user", err)
 		return err
@@ -28,16 +29,16 @@ func RegisterNewUser(user *api_structure.User) error {
 	return nil
 }
 
-func IsUserExist(username string) (bool, error) {
-	exists, err := setup.RedisClient.Exists(context.Background(), username).Result()
+func (redisC *RedisService) IsUserExist(username string) (bool, error) {
+	exists, err := redisC.Client.Exists(context.Background(), username).Result()
 	if err != nil {
 		return false, err
 	}
 	return exists == 1, nil
 }
 
-func IsUserAuthentic(user *api_structure.User) error {
-	data, err := setup.RedisClient.Get(context.Background(), user.Username).Bytes()
+func (redisC *RedisService) IsUserAuthentic(user *api_structure.User) error {
+	data, err := redisC.Client.Get(context.Background(), user.Username).Bytes()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -55,13 +56,13 @@ func IsUserAuthentic(user *api_structure.User) error {
 	return nil
 }
 
-func FetchChatBetween(username1, username2 string) ([]api_structure.Chat, error) {
+func (redisC *RedisService) FetchChatBetween(username1, username2 string) ([]api_structure.Chat, error) {
 	// Sohbet mesajları için Redis anahtarını oluşturun
 	chatKey := fmt.Sprintf("chats:%s:%s", username1, username2)
 	var chatHistory []api_structure.Chat
 
 	// Belirtilen zaman aralığında sohbet mesajlarını alın
-	chatData, err := setup.RedisClient.Get(context.Background(), chatKey).Bytes()
+	chatData, err := redisC.Client.Get(context.Background(), chatKey).Bytes()
 	if err != nil {
 		if err == redis.Nil {
 			fmt.Println("Chat history not found")
@@ -78,11 +79,11 @@ func FetchChatBetween(username1, username2 string) ([]api_structure.Chat, error)
 
 // Kullanıcının Kişi Listesini Getir. Kişiye gönderilen ve kişi tarafından alınan tüm mesajları içerir.
 // Bir kişiyle son aktiviteye göre sıralanmış bir liste döndürür
-func FetchContactList(username string) ([]string, error) {
+func (redis *RedisService) FetchContactList(username string) ([]string, error) {
 	contactListKey := fmt.Sprintf("contact-list:%s", username)
 
 	// Kişi listesini Redis'ten al
-	contactList, err := setup.RedisClient.SMembers(context.Background(), contactListKey).Result()
+	contactList, err := redis.Client.SMembers(context.Background(), contactListKey).Result()
 	if err != nil {
 		return nil, err
 	}
@@ -90,12 +91,12 @@ func FetchContactList(username string) ([]string, error) {
 	return contactList, nil
 }
 
-func AddToContactList(username, contactUsername string) error {
+func (redis *RedisService) AddToContactList(username, contactUsername string) error {
 	// Kişi listesi için Redis anahtarını oluşturun
 	contactListKey := fmt.Sprintf("contact-list:%s", username)
 
 	// Kişiyi kişi listesine ekle
-	err := setup.RedisClient.SAdd(context.Background(), contactListKey, contactUsername).Err()
+	err := redis.Client.SAdd(context.Background(), contactListKey, contactUsername).Err()
 	if err != nil {
 		return err
 	}
@@ -104,10 +105,10 @@ func AddToContactList(username, contactUsername string) error {
 }
 
 // Sohbeti kaydet
-func SaveChatHistory(msg api_structure.Chat) error {
+func (redisC *RedisService) SaveChatHistory(msg api_structure.Chat) error {
 	chatKey := fmt.Sprintf("chats:%s:%s", msg.From, msg.To)
 
-	chatHistory, err := setup.RedisClient.Get(context.Background(), chatKey).Bytes()
+	chatHistory, err := redisC.Client.Get(context.Background(), chatKey).Bytes()
 	if err != nil && err != redis.Nil {
 		return fmt.Errorf("error fetching chat history: %v", err)
 	}
@@ -127,7 +128,7 @@ func SaveChatHistory(msg api_structure.Chat) error {
 		return fmt.Errorf("error marshaling chat history: %v", err)
 	}
 
-	err = setup.RedisClient.Set(context.TODO(), chatKey, data, 0).Err()
+	err = redisC.Client.Set(context.TODO(), chatKey, data, 0).Err()
 	if err != nil {
 		return fmt.Errorf("error saving chat history: %v", err)
 	}

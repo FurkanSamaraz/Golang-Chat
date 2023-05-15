@@ -10,6 +10,10 @@ import (
 	"github.com/gofiber/websocket/v2"
 )
 
+type WsController struct {
+	Scv api_model.RedisService
+}
+
 var clients = make(map[string]*api_structure.Client)
 var rooms = make(map[string]*api_structure.Room)
 
@@ -18,7 +22,7 @@ var rooms = make(map[string]*api_structure.Room)
 // @Description   Handles WebSocket connections and message sending
 // @Tags          WebSocket
 // @Router        /ws [get]
-func WsHandler(c *websocket.Conn) {
+func (redisModel *WsController) WsHandler(c *websocket.Conn) {
 	user := c.Locals("user").(*api_structure.Claims)
 
 	// Kullanıcı listesine kullanıcı ekle
@@ -65,13 +69,13 @@ func WsHandler(c *websocket.Conn) {
 					}
 
 					// Gönderici ve alıcıyı birbirinin kişi listelerine ekleyin
-					api_model.AddToContactList(c.Username, client.Username)
-					api_model.AddToContactList(client.Username, c.Username)
+					redisModel.Scv.AddToContactList(c.Username, client.Username)
+					redisModel.Scv.AddToContactList(client.Username, c.Username)
 				}
 			}
 
 			// Mesajı Redis'e kaydet
-			api_model.SaveChatHistory(msg)
+			redisModel.Scv.SaveChatHistory(msg)
 
 		} else {
 			// Tüm bağlı istemcilere mesaj yayınlayın (Broadcast)
@@ -84,13 +88,13 @@ func WsHandler(c *websocket.Conn) {
 					}
 
 					// Gönderici ve alıcıyı birbirinin kişi listelerine ekleyin
-					api_model.AddToContactList(c.Username, client.Username)
-					api_model.AddToContactList(client.Username, c.Username)
+					redisModel.Scv.AddToContactList(c.Username, client.Username)
+					redisModel.Scv.AddToContactList(client.Username, c.Username)
 				}
 			}
 
 			// Mesajı Redis'e kaydet
-			api_model.SaveChatHistory(msg)
+			redisModel.Scv.SaveChatHistory(msg)
 		}
 	}
 
